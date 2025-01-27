@@ -60,7 +60,7 @@ def MakeAnimation(WindDF: pd.DataFrame, RainDF: pd.DataFrame) -> None:
             precip_slice['longitude'], 
             precip_slice['latitude'], 
             c=values,  # Color based on rainfall intensity
-            s=values * 200,  # Adjust size of the dots
+            s=values * 30,  # Adjust size of the dots
             cmap=cmap_precip, 
             norm=norm_precip,  # Use the normalization set earlier
             alpha=0.7

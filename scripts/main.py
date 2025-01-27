@@ -12,7 +12,7 @@ def main():
     WindDF = BuildWindDF(DATE, START_TIME, END_TIME)
 
     anim = MakeAnimation(WindDF, RainDF)
-    anim.save('../gifs/anim.gif', fps=1)
+    anim.save('../gifs/output.gif', fps=1)
 
 if __name__ == '__main__':
     main()
