@@ -96,10 +96,19 @@ def BuildWindDF(DATE: str, START_TIME: str, END_TIME: str) -> pd.DataFrame:
     for time_label in time_labels:
         url = f'https://api-open.data.gov.sg/v2/real-time/api/wind-speed?date={DATE}T{time_label}:00'
         response = requests.get(url)
-        data = response.json()
+        try:
+            data = response.json()
+        except :
+            print(f'Wind Data is missing for {time_label}, but we will still proceed.')
+
         timestamp = DATE + 'T' + time_label + ':00+08:00'
         timestamp = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:00+08:00')
-        value = data['data']['readings'][0]['data']
+
+        try:
+            value = data['data']['readings'][0]['data']
+        except TypeError:
+            logging.info(data['errorMsg'])
+
 
         ToAdd = pd.DataFrame(data={'timestamp': [timestamp for i in range(len(value))], 
                             'stationId': [value[i]['stationId'] for i in range(len(value))], 

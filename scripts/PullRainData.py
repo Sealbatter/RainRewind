@@ -41,7 +41,10 @@ def BuildRainDF(DATE: str, START_TIME: str, END_TIME: str) -> pd.DataFrame:
         count = 0
         url = f'https://api-open.data.gov.sg/v2/real-time/api/rainfall?date={DATE}T{time_label}:00'
         response = requests.get(url)
-        data = response.json()
+        try:
+            data = response.json()
+        except :
+            print(f'Rain Data is missing for {time_label}, but we will still proceed.')
         timestamp = DATE + 'T' + time_label + ':00+08:00'
         timestamp = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:00+08:00')
         
